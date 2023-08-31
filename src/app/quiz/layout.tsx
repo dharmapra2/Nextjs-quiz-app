@@ -1,4 +1,5 @@
 "use client";
+import NavBar from "@/components/widget/NavBar";
 import TopNavigation from "@/components/widget/TopNavigation";
 import React, { createContext, useState } from "react";
 
@@ -14,11 +15,8 @@ function QuizLayout({ children }: { children: React.ReactNode }) {
       className={`grid grid-rows-6 gap-4 bg-green-500 p-2`}
       style={{ fontFamily: "ProximaNova" }}
     >
-      <nav className={`col-span-6 bg-orange-500`}>
-        <h3>USer Email:- dp@ghj.com </h3>
-        <p>Time stamp </p>
-      </nav>
-      <TopNavigation className={`row-span-6 bg-stone-500`} />
+      <NavBar />
+      <TopNavigation className={`row-span-5 bg-stone-500`} />
       {children}
     </main>
   );
