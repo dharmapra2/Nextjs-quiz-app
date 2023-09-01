@@ -31,17 +31,18 @@ function Timer({ countMin = 30 }: { countMin: number }) {
   };
 
   return (
-    <div className="flex w-2/5">
+    <div className="float-right flex gap-2 justify-end w-[400px] font-extrabold text-lg">
       {timerExpired ? (
         <div className="text-red-500 font-bold">Timer's Up!</div>
       ) : (
         Object.entries(timeUnits).map(([label, value]) => (
-          <div key={label} className="flex flex-row bg-white font-black">
-            <p>{`${value}`.padStart(2, "0")}</p>
-            <span className="text">{label}</span>
-          </div>
-        ))
-      )}
+            <div key={label} className="flex flex-row gap-1 bg-white font-black">
+              <p>{`${value}`.padStart(2, "0")}</p>
+              <span className="text">{label}</span>
+            </div>
+          ))
+        )
+      }
     </div>
   );
 }

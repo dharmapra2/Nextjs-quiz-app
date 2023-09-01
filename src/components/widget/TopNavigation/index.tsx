@@ -13,7 +13,7 @@ function TopNavigation({ className }: { className: string }) {
         {Array.from({ length }, (_, index) => index + 1)?.map((_data, i) => (
           <Link
             passHref={true}
-            className={`h-9 w-h-9 rounded-full flex justify-center items-center m-1 cursor-pointer`}
+            className={`h-[36px] w-[36px] rounded-full flex justify-center items-center m-1 cursor-pointer`}
             key={i}
             style={{
               backgroundColor: "black",

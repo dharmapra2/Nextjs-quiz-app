@@ -67,11 +67,11 @@ function Page({ params }: { params: { itemId: string } }) {
           ) : null}
         </div>
       </section>
-      <section className="w-full flex flex-row justify-around items-center text-sm md:text-xl flex-wrap">
-        <Link className="flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[40%] md:w-[30%] h-12" href={`/quiz/${+itemId - 1}`}>
+      <section className="w-full flex flex-col sm:flex-row justify-around gap-2 items-center text-sm md:text-xl flex-wrap">
+        <Link className="flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId <= 0} href={`/quiz/${+itemId - 1}`}>
           <span className="hidden md:block font-extrabold">{"<"}</span>Prev
         </Link>
-        <Link className="flex gap-2 items-center justify-center bg-quiz-pink hover:bg-quiz-pink-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[40%] md:w-[30%] h-12" href={`/quiz/${+itemId + 1}`}>
+        <Link className="flex gap-2 items-center justify-center bg-quiz-pink hover:bg-quiz-pink-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId >= noOfQue} href={`/quiz/${+itemId + 1}`}>
           Next<span className="hidden md:block font-extrabold">{">"}</span>
         </Link>
       </section>

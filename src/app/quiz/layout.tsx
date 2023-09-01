@@ -18,7 +18,7 @@ function QuizLayout({ children }: { children: React.ReactNode }) {
       <NavBar />
       <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-10%)]">
         <TopNavigation
-          className={`w-full h-auto md:h-full md:max-w-[350px] bg-white overflow-auto p-2`}
+          className={`w-full h-[15%] md:h-full md:max-w-[350px] bg-white overflow-auto p-2`}
         />
         <div className="w-full h-full bg-yellow-900 overflow-auto p-2 bg-quiz-plum">
           {children}
