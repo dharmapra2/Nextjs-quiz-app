@@ -1,5 +1,5 @@
 import React from "react";
-import CustomTimer from "../Timer/Timer";
+import CustomTimer from "@/components/widget/Timer/Timer";
 
 function NavBar() {
   return (

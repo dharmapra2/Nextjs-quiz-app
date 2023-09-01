@@ -1,16 +1,37 @@
-import React from "react";
+"use client";
+import React, { useEffect, useMemo, useState } from "react";
+import { responseData } from "@/components/service/Data/category";
+import { singleQuestion } from "@/components/service/Type";
 
 // we are using memo to prevent unnecessary re render
 function Page({ params }: { params: { itemId: string } }) {
+  const itemId = useMemo(() => params?.itemId, [params?.itemId]);
+  const noOfQue = useMemo(() => responseData.length, [responseData]);
+  const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
+  const [options, setOptions] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const selected = responseData.find((_, index) => +itemId === index + 1);
+    let mergeOptions:String[] = selected?.incorrect_answers ?? [];
+    mergeOptions.push(selectedQue?.correct_answer);
+    console.log(`selectedc`, selected);
+    return () => {
+      setSelectedQue(selected || null);
+      console.log(`mergeOptions ${mergeOptions}`);
+    };
+  }, [itemId]);
+
   return (
     <article className="h-full flex flex-col bg-red-500">
       <aside className="flex flex-row">
         <h3>i</h3>
-        <p>Question No.{params.itemId} of 5</p>
+        <p>
+          Question No.{itemId} of {noOfQue}
+        </p>
       </aside>
       <section>
         <div className="questionbox-border h-20 p-4 border-4">
-          Q. Adolf Hitler was tried at the Nuremberg trials.
+          Q. {selectedQue?.question}
         </div>
         <form className="form">
           <p className="instruction">

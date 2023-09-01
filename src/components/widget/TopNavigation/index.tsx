@@ -19,7 +19,7 @@ function TopNavigation({ className }: { className: string }) {
               backgroundColor: "black",
               color: "white",
             }}
-            href={`/quiz/${i}`}
+            href={`/quiz/${i + 1}`}
           >
             {i + 1}
           </Link>
