@@ -235,7 +235,7 @@ export const responseData: singleQuestion[] = [
     difficulty: "hard",
     question:
       "Which member of the Wu-Tang Clan had only one verse in their debut album Enter the Wu-Tang (36 Chambers)?",
-    correct_answer: "Masta Killa",
-    incorrect_answers: ["Method Man", "Inspectah Deck", "GZA"],
+    correct_answer: "Masta Killa multiplemultiple multiple multiple",
+    incorrect_answers: ["Method Man multiple multiple w-full h-full flex flex-col justify-between bg-quiz-valentine-red", "Inspectah Deck multiple multiple", "GZA w-full h-full flex flex-col justify-between bg-quiz-valentine-red"],
   },
 ];

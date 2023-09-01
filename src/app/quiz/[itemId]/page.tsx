@@ -2,60 +2,78 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { responseData } from "@/components/service/Data/category";
 import { singleQuestion } from "@/components/service/Type";
+import Link from "next/link";
+
 
 // we are using memo to prevent unnecessary re render
 function Page({ params }: { params: { itemId: string } }) {
   const itemId = useMemo(() => params?.itemId, [params?.itemId]);
   const noOfQue = useMemo(() => responseData.length, [responseData]);
   const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
-  const [options, setOptions] = useState<string[] | null>(null);
+  const [options, setOptions] = useState<string[] | null>([]);
+  const [active, setActive] = useState<Number>(-1);
 
   useEffect(() => {
-    const selected = responseData.find((_, index) => +itemId === index + 1);
-    let mergeOptions:String[] = selected?.incorrect_answers ?? [];
-    mergeOptions.push(selectedQue?.correct_answer);
-    console.log(`selectedc`, selected);
-    return () => {
-      setSelectedQue(selected || null);
-      console.log(`mergeOptions ${mergeOptions}`);
-    };
+    const selected = responseData.find(
+      (_, index) => +params.itemId === index + 1
+    );
+
+    if (selected) {
+      const mergeOptions: string[] = [
+        ...selected.incorrect_answers,
+        selected.correct_answer,
+      ];
+      setSelectedQue(selected);
+      setOptions(mergeOptions);
+    } else {
+      setSelectedQue(null);
+      setOptions([]);
+    }
   }, [itemId]);
 
   return (
-    <article className="h-full flex flex-col bg-red-500">
-      <aside className="flex flex-row">
-        <h3>i</h3>
-        <p>
-          Question No.{itemId} of {noOfQue}
-        </p>
-      </aside>
-      <section>
-        <div className="questionbox-border h-20 p-4 border-4">
-          Q. {selectedQue?.question}
+    <article className="w-full h-full flex flex-col justify-between bg-quiz-valentine-red font-serif">
+      <section className="flex flex-col gap-2 text-base">
+        <div className="max-h-fit flex flex-row items-start text-justify gap-2 p-4 border-4">
+          <strong className="float-left font-bold ">{`Q(${itemId}).`}</strong>
+          <p
+            className="font-semibold pt-[2px]"
+            dangerouslySetInnerHTML={{
+              __html: selectedQue?.question,
+            }}
+          ></p>
         </div>
-        <form className="form">
-          <p className="instruction">
+        <div className="h-fit flex flex-col gap-2 p-3 text-justify">
+          <p className="font-normal">
             Please choose one of the following answers:
           </p>
           {/* options */}
-          <ul className="list-group">
-            <li className="list-group-item active" aria-current="true">
-              An active item
-            </li>
-            <li className="list-group-item">A second item</li>
-            <li className="list-group-item">A third item</li>
-            <li className="list-group-item">A fourth item</li>
-            <li className="list-group-item">And a fifth one</li>
-          </ul>
-          <div className="btn-group">
-            <button className="btn">
-              <span>{"< "}</span>prev
-            </button>
-            <button className="btn">
-              next <span>{" >"}</span>
-            </button>
-          </div>
-        </form>
+          {options?.length ? (
+            <ul className="flex flex-col gap-1 font-medium">
+              {options?.map((item, index) => (
+                <li
+                  key={index}
+                  className={`flex items-center text-gray-600 dark:text-gray-200 justify-between py-3  border-gray-100 dark:border-gray-800 ${active == index
+                    ? "bg-quiz-flax"
+                    : "bg-transparent border-b-2"
+                    }`}
+                  onClick={() => setActive((_prev) => index)}
+                  dangerouslySetInnerHTML={{
+                    __html: item,
+                  }}
+                ></li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </section>
+      <section className="w-full flex flex-row justify-around items-center text-sm md:text-xl flex-wrap">
+        <Link className="flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[40%] md:w-[30%] h-12" href={`/quiz/${+itemId - 1}`}>
+          <span className="hidden md:block font-extrabold">{"<"}</span>Prev
+        </Link>
+        <Link className="flex gap-2 items-center justify-center bg-quiz-pink hover:bg-quiz-pink-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[40%] md:w-[30%] h-12" href={`/quiz/${+itemId + 1}`}>
+          Next<span className="hidden md:block font-extrabold">{">"}</span>
+        </Link>
       </section>
     </article>
   );
