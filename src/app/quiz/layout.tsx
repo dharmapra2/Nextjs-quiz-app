@@ -16,11 +16,11 @@ function QuizLayout({ children }: { children: React.ReactNode }) {
       style={{ fontFamily: "ProximaNova" }}
     >
       <NavBar />
-      <div className="flex  flex-col md:flex-row w-full h-[calc(100%-36px)]">
+      <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-10%)]">
         <TopNavigation
-          className={`w-full md:w-[350px] bg-stone-500 overflow-auto`}
+          className={`w-full h-full md:w-[350px] bg-white overflow-auto p-3`}
         />
-        <div className="w-full h-full bg-yellow-900">{children}</div>
+        <div className="w-full bg-yellow-900 overflow-auto p-3">{children}</div>
       </div>
     </main>
   );

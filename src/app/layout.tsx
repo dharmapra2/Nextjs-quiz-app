@@ -19,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.className} h-screen grid grid-cols-1 grid-rows-1 bg-slate-700 p-2 sm:p-4 md:p-6`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

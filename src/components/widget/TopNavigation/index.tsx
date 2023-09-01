@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 function TopNavigation({ className }: { className: string }) {
   const length = 65;
@@ -8,20 +9,20 @@ function TopNavigation({ className }: { className: string }) {
   };
   return (
     <section className={className}>
-      <div className="w-auto grid grid-rows-1 md:grid-cols-3 grid-flow-col md:grid-flow-row gap-2 bg-white m-3">
-        {Array.from({ length }, (_, index) => index + 1)?.map((data, i) => (
-          <div
-            className={`h-9 w-9 rounded-full flex justify-center items-center m-1 cursor-pointer`}
+      <div className="w-full h-full grid grid-rows-1 md:grid-cols-3 grid-flow-col md:grid-flow-row gap-2">
+        {Array.from({ length }, (_, index) => index + 1)?.map((_data, i) => (
+          <Link
+            passHref={true}
+            className={`h-9 w-h-9 rounded-full flex justify-center items-center m-1 cursor-pointer`}
             key={i}
-            onMouseOver={() => handleMouseOver(i + 1)}
             style={{
               backgroundColor: "black",
               color: "white",
-              pointerEvents: "none",
             }}
+            href={`/quiz/${i}`}
           >
             {i + 1}
-          </div>
+          </Link>
         ))}
       </div>
     </section>
