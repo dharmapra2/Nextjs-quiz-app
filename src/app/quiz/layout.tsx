@@ -12,12 +12,16 @@ const style = {
 function QuizLayout({ children }: { children: React.ReactNode }) {
   return (
     <main
-      className={`grid grid-rows-6 md:grid-cols-6 gap-4 bg-green-500 p-2`}
+      className="flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
       style={{ fontFamily: "ProximaNova" }}
     >
       <NavBar />
-      <TopNavigation className={`md:row-span-6 bg-stone-500`} />
-      {children}
+      <div className="flex  flex-col md:flex-row w-full h-[calc(100%-36px)]">
+        <TopNavigation
+          className={`w-full md:w-[350px] bg-stone-500 overflow-auto`}
+        />
+        <div className="w-full h-full bg-yellow-900">{children}</div>
+      </div>
     </main>
   );
 }
