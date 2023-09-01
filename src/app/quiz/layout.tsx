@@ -12,11 +12,11 @@ const style = {
 function QuizLayout({ children }: { children: React.ReactNode }) {
   return (
     <main
-      className={`grid grid-rows-6 gap-4 bg-green-500 p-2`}
+      className={`grid grid-rows-6 md:grid-cols-6 gap-4 bg-green-500 p-2`}
       style={{ fontFamily: "ProximaNova" }}
     >
       <NavBar />
-      <TopNavigation className={`row-span-5 bg-stone-500`} />
+      <TopNavigation className={`md:row-span-6 bg-stone-500`} />
       {children}
     </main>
   );
