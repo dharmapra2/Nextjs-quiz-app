@@ -1,6 +1,5 @@
 import React from "react";
-import Timer from "../Timer/Timer";
-import { Timer2 } from "../Timer/Timer2";
+import CustomTimer from "../Timer/Timer";
 
 function NavBar() {
   return (
@@ -8,7 +7,7 @@ function NavBar() {
       className={`h-[10%] w-full flex flex-row justify-between items-center bg-purple-700`}
     >
       <h3>USer Email:- dp@ghj.com </h3>
-      <Timer2 countMin={1} />
+      <CustomTimer countMin={1} />
     </nav>
   );
 }
