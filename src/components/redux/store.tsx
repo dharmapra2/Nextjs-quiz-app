@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { editSummary } from "./slices/EditSummarySlice";
+import { questionControl } from "./slices/EditSummarySlice";
 
 export const store = configureStore({
   reducer: {
-    editSummary: editSummary.reducer,
+    questionControl: questionControl.reducer,
   },
 });
 

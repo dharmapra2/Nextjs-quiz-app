@@ -3,10 +3,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { responseData } from "@/components/service/Data/category";
 import { singleQuestion } from "@/components/service/Type";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 
 // we are using memo to prevent unnecessary re render
 function Page({ params }: { params: { itemId: string } }) {
+  const { pathname, push } = useRouter();
+
   const itemId = useMemo(() => params?.itemId, [params?.itemId]);
   const noOfQue = useMemo(() => responseData.length, [responseData]);
   const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
@@ -68,12 +71,12 @@ function Page({ params }: { params: { itemId: string } }) {
         </div>
       </section>
       <section className="w-full flex flex-col sm:flex-row justify-around gap-2 items-center text-sm md:text-xl flex-wrap">
-        <Link className="flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId <= 0} href={`/quiz/${+itemId - 1}`}>
+        <button className="flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId <= 0} href={`/quiz/${+itemId - 1}`}>
           <span className="hidden md:block font-extrabold">{"<"}</span>Prev
-        </Link>
-        <Link className="flex gap-2 items-center justify-center bg-quiz-pink hover:bg-quiz-pink-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId >= noOfQue} href={`/quiz/${+itemId + 1}`}>
+        </button>
+        <button className="flex gap-2 items-center justify-center bg-quiz-pink hover:bg-quiz-pink-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12" aria-disabled={+itemId >= noOfQue} href={`/quiz/${+itemId + 1}`}>
           Next<span className="hidden md:block font-extrabold">{">"}</span>
-        </Link>
+        </button>
       </section>
     </article>
   );
