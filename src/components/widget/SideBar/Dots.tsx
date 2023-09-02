@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-function Dots({ items, urlPath, ...props }: { items: any, urlPath: String }) {
+function Dots({ items, urlPath, readOnly, ...props }: { items: any, urlPath: String | any | null, readOnly: Boolean }) {
     const { push } = useRouter();
     const dispatch: AppDispatch = useDispatch();
+    console.log(urlPath);
 
     const handleClickDotBtn = (itemId: number) => {
         const temp: {
@@ -16,8 +17,9 @@ function Dots({ items, urlPath, ...props }: { items: any, urlPath: String }) {
             itemId,
             opt: null
         }
-        console.log(urlPath);
-        dispatch(setSelectedOptions(temp));
+        if (!readOnly) {
+            dispatch(setSelectedOptions(temp));
+        }
         push(`/${urlPath}/${itemId}`);
     }
 
@@ -34,7 +36,7 @@ function Dots({ items, urlPath, ...props }: { items: any, urlPath: String }) {
             : "text-quiz-white";
     return (
         <div
-            className={`h-[36px] w-[36px] rounded-full flex justify-center items-center m-1 cursor-pointer ${backgroundColor} ${color}`}
+            className={`h-6 sm:h-9 w-6 sm:w-9 rounded-full flex justify-center items-center m-1 cursor-pointer ${backgroundColor} ${color}`}
             key={items?.itemId}
             onClick={() => handleClickDotBtn(items?.itemId)}
             suppressHydrationWarning

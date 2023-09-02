@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import SkeletonNormalLoader from "@/components/widget/loader/SkeletonNormalLoader";
 import SkeletonSingleLineLoader from "@/components/widget/loader/SkeletonSingleLineLoader";
 import Timer from "@/components/widget/Timer/Timer";
+import { usePathname, useRouter } from "next/navigation";
 
 export const QuizContext = createContext<{
   questionData: singleQuestion[] | any[];
@@ -22,7 +23,9 @@ const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'
   </div>,
 })
 
-function QuizLayout({ children, params }: { children: React.ReactNode, params: { categoryName: string, itemId: number } }) {
+function QuizLayout({ children, params }: { children: React.ReactNode, params: { itemId: number } }) {
+  const pathname = usePathname()
+  const router = useRouter();
   const isClient = typeof window !== "undefined";
 
 
@@ -37,37 +40,33 @@ function QuizLayout({ children, params }: { children: React.ReactNode, params: {
     questionData = clientQuestionData;
     clickedSave = useMemo(() => redirectPath == "yes" ? "reportPage" : "quizPage", [redirectPath]);
     noOfQue = useMemo(() => questionData.length, [questionData]);
+
+    if (redirectPath != "yes" && pathname?.split("/")?.includes("reportPage")) {
+      router.back();
+    } else if (noOfQue <= 0) {
+      router.replace("/");
+    }
   }
 
   return (
     <QuizContext.Provider value={{ questionData, noOfQue, clickedSave }}>
       <main
-        className="relative flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
+        className="flex w-full h-full flex-col justify-between gap-0 sm:gap-2 overflow-hidden"
         style={{ fontFamily: "ProximaNova" }}
       >
-
-        <nav
-          className={`h-[10%] w-full flex flex-col md:flex-row justify-between  items-stretch md:items-center bg-quiz-purple-15`}
-        >
-          <li className="float-left flex first:pt-0 last:pb-0">
-            <img className="h-10 w-10 rounded-full bg-quiz-purple" alt="" src={"next.svg"} />
-            <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-medium text-slate-900">Dhrama Pradhan</p>
-              <p className="text-sm text-slate-500 truncate">dharma@prgmail.con</p>
-            </div>
-          </li>
-          <Timer countMin={1} />
-        </nav>
-        <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-10%)]">
-          <section className={`w-full h-[10%] md:h-full md:max-w-[350px] bg-white overflow-auto p-0 sm:p-2`}>
-            <ServerComponent questionData={questionData} clickedSave={clickedSave} />
+        <NavBar>
+          <Timer countMin={10} />
+        </NavBar>
+        <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-15%)]">
+          <section className={`w-full h-[60px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2`}>
+            <ServerComponent questionData={questionData} clickedSave={clickedSave} readOnly={false} />
           </section>
           <div className="w-full h-full bg-yellow-900 overflow-auto p-2 bg-quiz-plum">
             {children}
           </div>
         </div>
       </main>
-    </QuizContext.Provider>
+    </QuizContext.Provider >
   );
 }
 

@@ -81,14 +81,14 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
                             {options?.map((item, index) => (
                               <li
                                 key={index}
-                                className={`flex items-center text-gray-600 dark:text-gray-200 justify-between py-3  border-gray-100 dark:border-gray-800 ${selectedQue?.selectedOption !== "" && active[1] == index
+                                className={`flex items-center text-gray-600 dark:text-gray-200 justify-between py-3  border-gray-100 dark:border-gray-800 ${active[1] == index
                                   ? "bg-quiz-flax"
                                   : active[0] == index
                                     ? "bg-quiz-pink"
                                     : "bg-transparent border-b-2"
                                   }`}
                                 dangerouslySetInnerHTML={{
-                                  __html: item + `${selectedQue?.selectedOption !== "" && active[1] == index ? "  ( Correct )  " : active[0] == index ? "  ( Wrong )  " : ""}`,
+                                  __html: item + `${active[1] == index ? "  ( Correct Ans. )  " : active[0] == index ? "  ( Wrong Ans. )  " : ""}`,
                                 }}
                               ></li>
                             ))}

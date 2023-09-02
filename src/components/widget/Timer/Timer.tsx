@@ -27,7 +27,7 @@ function Timer({ countMin = 30 }: { countMin: number }) {
         setTimerExpired(true);
         dispatch(clickSave());
         setTime(0);
-        push(`/reportPage/1`);
+        // push(`/reportPage/1`);
       } else {
         setTime(remainingTime);
       }
@@ -47,10 +47,11 @@ function Timer({ countMin = 30 }: { countMin: number }) {
       {timerExpired ? (
         <div className={`text-red-500 font-bold`}>Timer's Up!</div>
       ) : (
-        Object.entries(timeUnits).map(([label, value]) => (
+        Object.entries(timeUnits).map(([label, value], index) => (
           <div key={label} className={`flex flex-row gap-1 bg-white font-black`}>
             <p>{`${value}`.padStart(2, "0")}</p>
-            <span className="text">{label}</span>
+            <span className="hidden sm:block">{label}</span>
+            <span className={`${index % 2 == 0 ? "block" : "hidden"} sm:hidden`}>:</span>
           </div>
         ))
       )}

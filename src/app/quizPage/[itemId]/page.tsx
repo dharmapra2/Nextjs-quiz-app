@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 // we are using memo to prevent unnecessary re render
 function Page({ params }: { params: { categoryName: string, itemId: number } }) {
-  const { questionData } = useContext(QuizContext);
+  const { questionData, clickedSave } = useContext(QuizContext);
   const paramsItemId = useMemo(() => +params?.itemId, [params?.itemId]);
   const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
   const [options, setOptions] = useState<string[] | null>([]);
@@ -41,9 +41,11 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
     const temp: {
       itemId: number;
       opt: String;
-    } = { itemId, opt }
-    dispatch(setSelectedOptions(temp));
-    setActive((_prev) => index);
+    } = { itemId, opt };
+    if (clickedSave != "reportPage") {
+      dispatch(setSelectedOptions(temp));
+      setActive((_prev) => index);
+    }
   }
 
   const handleClickDotBtn = (itemId: number, type: string) => {
@@ -56,9 +58,10 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
       itemId,
       opt: null
     }
-    console.log(itemId);
-    dispatch(setSelectedOptions(temp));
-    push(`/quizPage/${itemId}`);
+    if (clickedSave != "reportPage") {
+      dispatch(setSelectedOptions(temp));
+      push(`/quizPage/${itemId}`);
+    }
   }
 
   return (
@@ -104,7 +107,7 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
                         ) : null}
                       </div>
                     </section>
-                    <section className="w-full flex flex-col sm:flex-row justify-around gap-2 items-center text-sm md:text-xl flex-wrap">
+                    <section className={`w-full ${clickedSave == "reportPage" ? "hidden" : ""} flex flex-col sm:flex-row justify-around gap-2 items-center text-sm md:text-xl flex-wrap`}>
                       <button
                         className={`flex gap-2 items-center justify-center bg-quiz-mint hover:bg-quiz-mint-15 focus:outline-none focus:ring focus:ring-violet-300 active:bg-quiz-navy px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15 `}
                         disabled={paramsItemId <= 1 ? true : false}

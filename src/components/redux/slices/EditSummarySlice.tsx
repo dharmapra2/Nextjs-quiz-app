@@ -1,8 +1,6 @@
 import { loadFromLocalStorage } from "@/components/Utility/Utility";
 import { singleQuestion } from "@/components/service/Type";
-import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import Swal from "sweetalert2";
 
 export interface filterState {
   clickedSave: String;
@@ -23,8 +21,10 @@ export const questionControl = createSlice({
       state.questionData = data?.payload;
     },
     setSelectedOptions: (state, action: PayloadAction<{ itemId: number | any, opt: string | any }>) => {
+      if (state.clickedSave == "yes") {
+        return;
+      }
       const { itemId, opt = null } = action.payload;
-      console.log(itemId, opt);
       const find = state.questionData.find(
         (question: { itemId: number; }) => question.itemId === itemId
       );
@@ -34,7 +34,6 @@ export const questionControl = createSlice({
       } else if (find && opt == null && find?.selectedOption == "") {
         find.visibility.visited = true;
       }
-
     },
     clickSave: (state) => {
       state.clickedSave = "yes";

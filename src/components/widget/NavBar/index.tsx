@@ -1,17 +1,18 @@
-import Timer from "@/components/widget/Timer/Timer";
-
-function NavBar() {
+import light_boy from "@/app/favicon.ico"
+import Image from "next/image";
+function NavBar({ children }: { children: React.ReactNode }) {
   return (
     <nav
-      className={`h-[10%] w-full flex flex-col md:flex-row justify-between  items-stretch md:items-center bg-quiz-purple-15`}
+      className={`h-[60px] sm:h-[15%] w-full flex flex-row md:flex-row justify-between items-center bg-quiz-mint`}
     >
       <li className="float-left flex first:pt-0 last:pb-0">
-        <img className="h-10 w-10 rounded-full bg-quiz-purple" alt="" src={"next.svg"} />
+        <Image className="h-10 w-10 rounded-full bg-quiz-purple" alt="" src={light_boy} />
         <div className="ml-3 overflow-hidden">
           <p className="text-sm font-medium text-slate-900">Dhrama Pradhan</p>
           <p className="text-sm text-slate-500 truncate">dharma@prgmail.con</p>
         </div>
       </li>
+      {children}
     </nav>
   );
 }

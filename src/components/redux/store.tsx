@@ -1,17 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { questionControl } from "./slices/EditSummarySlice";
-import { loadFromLocalStorage, saveToLocalStorage } from "@/components/Utility/Utility";
-
-
-
-// const authMiddleware = (store: { getState: () => { (): any; new(): any; question: any; }; }) => (next: (arg0: any) => any) => (action: { type: string; }) => {
-//   const result = next(action);
-//   if (action.type?.startsWith('question/')) {
-//     const authState = store.getState().question;
-//     localStorage.setItem('question', JSON.stringify(authState))
-//   }
-//   return result;
-// };
+import { saveToLocalStorage } from "@/components/Utility/Utility";
 
 
 
@@ -19,15 +8,12 @@ export const store = configureStore({
   reducer: {
     question: questionControl.reducer,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });
 
 
 
 store.subscribe(() => {
   const state = store.getState();
-  console.log(`state`, state);
-  console.log(`quizStore:-`, loadFromLocalStorage('quizStore'));
   saveToLocalStorage(state?.question, 'quizStore');
 });
 

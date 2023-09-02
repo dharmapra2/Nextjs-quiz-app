@@ -4,9 +4,11 @@ import { AppDispatch } from "@/components/redux/store";
 import { singleQuestion } from "@/components/service/Type";
 import InputField from "@/components/widget/Input/InputField";
 import SkeletonAnimateLoader from "@/components/widget/loader/SkeletonAnimateLoader";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import light_boy from "@/app/light_boy.ico"
 
 export default function home() {
   const icon = useRef<any>();
@@ -29,7 +31,7 @@ export default function home() {
     };
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      router.push(`/quiz/1`);
+      router.push(`/quizPage/1`);
       dispatch(setSelectedOptions(temp));
     }
   }
@@ -84,10 +86,10 @@ export default function home() {
   };
   return (
     <main className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full w-[100vw]">
-      <section className="w-full md:w-[46vw] bg-quiz-apricot">
-        <img src="20.jpg" alt="Picture of the author" />
+      <section className="hidden md:block md:w-[46vw] bg-quiz-apricot">
+        <Image src={light_boy} alt="Picture of the author" />
       </section>
-      <section className="w-full md:w-[46vw] h-full px-3 flex flex-col gap-2 justify-center items-center">
+      <section className="w-auto md:w-[46vw] h-full px-3 flex flex-col gap-2 justify-center items-center">
         <div className="w-full flex flex-col gap-2">
           <label htmlFor="username" className="text-[15px] font-bold leading-4">
             {"Username"}
@@ -111,7 +113,7 @@ export default function home() {
             {"Email"}
           </label>
           <InputField
-            inputType="email"
+            inputType="mail"
             autoFocus={false}
             handleChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}
             handleKeyPress={(e: { code: any; }) => handleKeyPress(e?.code, "login")}
