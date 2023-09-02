@@ -7,7 +7,11 @@ export interface filterState {
   questionData: [singleQuestion] | any;
 }
 
-const initialState: filterState = loadFromLocalStorage('quizStore');
+const storage = loadFromLocalStorage('quizStore');
+const initialState: filterState = storage ?? {
+  clickedSave: "no",
+  questionData: [],
+};
 
 export const questionControl = createSlice({
   name: "questionControl",

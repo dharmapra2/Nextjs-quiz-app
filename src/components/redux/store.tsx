@@ -26,6 +26,8 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const state = store.getState();
+  console.log(`state`, state);
+  console.log(loadFromLocalStorage('quizStore'));
   saveToLocalStorage(state?.question, 'quizStore');
 });
 
