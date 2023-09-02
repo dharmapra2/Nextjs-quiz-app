@@ -1,5 +1,5 @@
 "use client"
-import { storeQuestions } from "@/components/redux/slices/EditSummarySlice";
+import { setSelectedOptions, storeQuestions } from "@/components/redux/slices/EditSummarySlice";
 import { AppDispatch } from "@/components/redux/store";
 import { singleQuestion } from "@/components/service/Type";
 import InputField from "@/components/widget/Input/InputField";
@@ -19,23 +19,28 @@ export default function home() {
   const [clickedBtn, setClickedBtn] = useState(false);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   try {
-  //     const accessToken = localStorage.getItem("accessToken");
-  //     if (accessToken) {
-  //       router.push(`/quiz/1`);
-  //     }
-  //   } catch (error) {
-  //     ErrorPopup({ showIcon: false });
-  //   }
-  // });
 
+  useEffect(() => {
+    const temp: {
+      itemId: number;
+      opt: any;
+    } = {
+      itemId: 1,
+      opt: null,
+    };
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      router.push(`/quizPage/1`);
+      dispatch(setSelectedOptions(temp));
+    }
+  }
+  );
 
   const handleClick = async () => {
     if (username.length === 0) {
-      ErrorPopup({ message: "User Name is required" });
+      // ErrorPopup({ message: "User Name is required" });
     } else if (email.length === 0) {
-      ErrorPopup({ message: "Email is a required field" });
+      // ErrorPopup({ message: "Email is a required field" });
     } else {
       try {
         setClickedBtn(true);
@@ -61,16 +66,17 @@ export default function home() {
           localStorage.setItem("accessToken", "logedin")
         } else {
           setClickedBtn(false);
-          ErrorPopup({ message: data.message });
+          // ErrorPopup({ message: data.message });
         }
         setClickedBtn(false);
       } catch (error) {
         console.log(error);
         setClickedBtn(false);
-        ErrorPopup({});
+        // ErrorPopup({});
       }
     }
   };
+
   /* for handleing key press */
   const handleKeyPress = (key: string, type: string) => {
     if (key === "Enter" && type === "login") {
@@ -98,7 +104,7 @@ export default function home() {
             setHeight="h-9"
             id="username"
             extraClassName="font-medium px-4"
-            required
+            required={true}
           />
         </div>
         <div className="w-full flex flex-col gap-2">
@@ -116,7 +122,7 @@ export default function home() {
             setHeight="h-9"
             id="email"
             extraClassName="font-medium px-4"
-            required
+            required={true}
           />
         </div>
         <div className="text-center">

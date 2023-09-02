@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-function Dots({ items, ...props }: { items: any }) {
+function Dots({ items, urlPath, ...props }: { items: any, urlPath: String }) {
     const { push } = useRouter();
     const dispatch: AppDispatch = useDispatch();
 
@@ -16,8 +16,9 @@ function Dots({ items, ...props }: { items: any }) {
             itemId,
             opt: null
         }
+        console.log(urlPath);
         dispatch(setSelectedOptions(temp));
-        push(`/quiz/${itemId}`);
+        push(`/${urlPath}/${itemId}`);
     }
 
 

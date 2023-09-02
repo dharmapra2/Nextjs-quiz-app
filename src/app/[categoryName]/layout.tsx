@@ -7,17 +7,13 @@ import { useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import SkeletonNormalLoader from "@/components/widget/loader/SkeletonNormalLoader";
 import SkeletonSingleLineLoader from "@/components/widget/loader/SkeletonSingleLineLoader";
+import { useRouter, useParams, usePathname } from "next/navigation";
 
-const style = {
-  container: `grid grid-cols-6 grid-rows-8 gap-4 bg-green-500`,
-  main: `h-screen w-full overflow-y-auto pb-4 mobile-sm:pb-4 pt-4 px-[7px] mobile-sm:px-[12px] tablet-lg:px-[12px] tablet-xl:px-[23px] tablet:px-0 tablet:pb-4 tablet:pt-0 tablet-lg:pt-0`,
-  sideList: `col-span-2 row-span-7 row-start-2`,
-};
 export const QuizContext = createContext<{
   questionData: singleQuestion[] | any[];
   noOfQue: number;
-  msg: String
-}>({ questionData: [], noOfQue: 0, msg: "" });
+  clickedSave: String
+}>({ questionData: [], noOfQue: 0, clickedSave: "" });
 
 const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'), {
   ssr: false, loading: () => <div className="">
@@ -26,23 +22,32 @@ const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'
   </div>,
 })
 
-function QuizLayout({ children }: { children: React.ReactNode }) {
+function QuizLayout({ children, params }: { children: React.ReactNode, params: { categoryName: string, itemId: number } }) {
   const isClient = typeof window !== "undefined";
+  const { push } = useRouter();
+
+  const { categoryName } = params;
+
+  // if (["quizPage", "reportPage"].includes(categoryName) == false) {
+  //   push('/404');
+  //   return null;
+  // }
 
   // Initialize questionData and noOfQue with default values
   let questionData: singleQuestion[] | any[] = [];
   let noOfQue = 0;
-  let msg = "fghjk";
+  let clickedSave = "quizPage";
 
   // Use useSelector only on the client side
   if (isClient) {
-    const { questionData: clientQuestionData }: { questionData: singleQuestion[] | any[] } = useSelector((state: RootState) => state.question);
+    const { questionData: clientQuestionData, clickedSave: redirectPath }: { questionData: singleQuestion[] | any[], clickedSave: String } = useSelector((state: RootState) => state.question);
     questionData = clientQuestionData;
+    clickedSave = useMemo(() => redirectPath == "yes" ? "reportPage" : "quizPage", [redirectPath]);
     noOfQue = useMemo(() => questionData.length, [questionData]);
   }
 
   return (
-    <QuizContext.Provider value={{ questionData, noOfQue, msg }}>
+    <QuizContext.Provider value={{ questionData, noOfQue, clickedSave }}>
       <main
         className="relative flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
         style={{ fontFamily: "ProximaNova" }}

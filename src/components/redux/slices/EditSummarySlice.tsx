@@ -23,24 +23,18 @@ export const questionControl = createSlice({
       state.questionData = data?.payload;
     },
     setSelectedOptions: (state, action: PayloadAction<{ itemId: number | any, opt: string | any }>) => {
-      try {
-        const { itemId, opt = null } = action.payload;
-        console.log(itemId, opt);
-        const find = state.questionData.find(
-          (question: { itemId: number; }) => question.itemId === itemId
-        );
-        if (find && opt != null) {
-          find.selectedOption = opt;
-          find.visibility.attempted = true;
-        } else if (find && opt == null && find?.selectedOption == "") {
-          find.visibility.visited = true;
-        }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Something wents wrong",
-        });
+      const { itemId, opt = null } = action.payload;
+      console.log(itemId, opt);
+      const find = state.questionData.find(
+        (question: { itemId: number; }) => question.itemId === itemId
+      );
+      if (find && opt != null) {
+        find.selectedOption = opt;
+        find.visibility.attempted = true;
+      } else if (find && opt == null && find?.selectedOption == "") {
+        find.visibility.visited = true;
       }
+
     },
     clickSave: (state) => {
       state.clickedSave = "yes";
