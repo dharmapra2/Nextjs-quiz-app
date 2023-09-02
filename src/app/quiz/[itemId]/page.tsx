@@ -10,32 +10,22 @@ import { useSelector } from "react-redux";
 // we are using memo to prevent unnecessary re render
 function Page({ params }: { params: { itemId: string } }) {
   const { push } = useRouter();
-  const questionData = useSelector((state: RootState) => state.questionControl);
-
+  const { questionData }: { questionData: singleQuestion | any | null } = useSelector((state: RootState) => state.question);
 
   const itemId = useMemo(() => params?.itemId, [params?.itemId]);
-  const noOfQue = useMemo(() => responseData.length, [responseData]);
+  const noOfQue = useMemo(() => questionData.length, [questionData]);
   const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
   const [options, setOptions] = useState<string[] | null>([]);
   const [active, setActive] = useState<Number>(-1);
 
   useEffect(() => {
-    console.log(questionData);
-    const selected = responseData.find(
-      (_, index) => +params.itemId === index + 1
+    const selected = questionData.find(
+      ({ itemId }: { itemId: number }) => +params.itemId === itemId
     );
+    console.log(selected);
+    setSelectedQue(selected ?? null);
+    setOptions(selected?.incorrect_answers ?? []);
 
-    if (selected) {
-      const mergeOptions: string[] = [
-        ...selected.incorrect_answers,
-        selected.correct_answer,
-      ];
-      setSelectedQue(selected);
-      setOptions(mergeOptions);
-    } else {
-      setSelectedQue(null);
-      setOptions([]);
-    }
   }, [itemId]);
 
   return (

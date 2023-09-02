@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Provider } from "react-redux";
 import dynamic from 'next/dynamic'
+import { createContext } from "react";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,12 +19,14 @@ const inter = Inter({ subsets: ["latin"] });
 // const ChildComponents = dynamic(() => import('@/path/to/ChildComponents'), {
 //   ssr: false,
 // });
+export const QuizContext = createContext({});
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const msg: String = "hii";
   return (
     <html lang="en">
       <body
@@ -31,7 +34,9 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Provider store={store}>
-          {children}
+          <QuizContext.Provider value={{ msg }}>
+            {children}
+          </QuizContext.Provider>
         </Provider>
       </body>
     </html>

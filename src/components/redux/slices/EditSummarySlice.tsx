@@ -1,3 +1,4 @@
+import { loadFromLocalStorage } from "@/components/Utility/Utility";
 import { singleQuestion } from "@/components/service/Type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,10 +7,7 @@ export interface filterState {
   questionData: [singleQuestion] | any;
 }
 
-const initialState: filterState = {
-  clickedSave: "no",
-  questionData: [],
-};
+const initialState: filterState = loadFromLocalStorage('quizStore');
 
 export const questionControl = createSlice({
   name: "questionControl",

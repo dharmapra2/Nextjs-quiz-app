@@ -64,6 +64,7 @@ export default function home() {
         }
         setClickedBtn(false);
       } catch (error) {
+        console.log(error);
         setClickedBtn(false);
         ErrorPopup({});
       }

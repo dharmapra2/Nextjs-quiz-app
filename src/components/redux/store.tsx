@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { questionControl } from "./slices/EditSummarySlice";
-
-
+import { loadFromLocalStorage, saveToLocalStorage } from "@/components/Utility/Utility";
 
 
 
@@ -23,31 +22,11 @@ export const store = configureStore({
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });
 
-const localStorage = {
-  loadFromLocalStorage: (key = "store") => {
-    try {
-      const serializedStore = window.localStorage.getItem(key);
-      if (serializedStore === null) return undefined;
-      return JSON.parse(serializedStore);
-    } catch (error) {
-      console.log(`localStorage.getItem error ==> ${error}`);
-      return null;
-    }
-  },
-  saveToLocalStorage: (value: any, key = "store") => {
-    try {
-      const serializedStore = JSON.stringify(value);
-      window.localStorage.setItem(key, serializedStore);
-    } catch (error) {
-      console.log(`localStorage.setItem error ==> ${error}`);
-    }
-  },
-};
+
 
 store.subscribe(() => {
   const state = store.getState();
-  console.log(state);
-  // localStorage.saveToLocalStorage();
+  saveToLocalStorage(state?.question, 'quizStore');
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
