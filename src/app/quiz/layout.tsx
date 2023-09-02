@@ -1,6 +1,5 @@
 "use client";
 import NavBar from "@/components/widget/NavBar";
-// import TopNavigation from "@/components/widget/TopNavigation";
 import React, { createContext, useMemo } from "react";
 import { RootState } from "@/components/redux/store";
 import { singleQuestion } from "@/components/service/Type";
