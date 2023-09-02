@@ -125,3 +125,7 @@ body {
 .Animate-loader:nth-child(5) {
   animation-delay: 0.9s;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

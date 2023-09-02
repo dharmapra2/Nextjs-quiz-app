@@ -1,29 +1,34 @@
 "use client"
+import { storeQuestions } from "@/components/redux/slices/EditSummarySlice";
+import { AppDispatch } from "@/components/redux/store";
+import { singleQuestion } from "@/components/service/Type";
 import InputField from "@/components/widget/Input/InputField";
 import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
 import SkeletonAnimateLoader from "@/components/widget/loader/SkeletonAnimateLoader";
 import { useRouter } from "next/navigation";
 import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
-export default function Home() {
+export default function home() {
   const icon = useRef<any>();
+  /* Redux set value */
+  const dispatch: AppDispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [clickedBtn, setClickedBtn] = useState(false);
-  const [sign, setSign] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        router.push(`/quiz/1`);
-      }
-    } catch (error) {
-      ErrorPopup({ showIcon: false });
-    }
-  });
+  // useEffect(() => {
+  //   try {
+  //     const accessToken = localStorage.getItem("accessToken");
+  //     if (accessToken) {
+  //       router.push(`/quiz/1`);
+  //     }
+  //   } catch (error) {
+  //     ErrorPopup({ showIcon: false });
+  //   }
+  // });
 
 
   const handleClick = async () => {
@@ -38,9 +43,21 @@ export default function Home() {
           method: "GET",
         });
         const data = await response.json();
-        console.log(response, data);
-        if (response.ok && data?.response_code == 0) {
-          setSign(!sign);
+        if (response.ok && data?.response_code == 0 && data?.results?.length > 0) {
+          const results = data.results.map((item: singleQuestion, index: number) => {
+            const mergeOptions = [...item.incorrect_answers, item.correct_answer];
+            return {
+              ...item,
+              incorrect_answers: mergeOptions,
+              itemId: index + 1,
+              visibility: {
+                visited: false,
+                attempted: false,
+              },
+            };
+          });
+          dispatch(storeQuestions(results));
+          localStorage.setItem("accessToken", "logedin")
         } else {
           setClickedBtn(false);
           ErrorPopup({ message: data.message });

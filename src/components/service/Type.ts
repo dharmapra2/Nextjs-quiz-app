@@ -5,4 +5,5 @@ export type singleQuestion = {
   question: string | any;
   correct_answer: string | any;
   incorrect_answers: string[] | any;
+  [key: string]: any;
 };
