@@ -44,7 +44,7 @@ function QuizLayout({ children }: { children: React.ReactNode }) {
   return (
     <QuizContext.Provider value={{ questionData, noOfQue, msg }}>
       <main
-        className="flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
+        className="relative flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
         style={{ fontFamily: "ProximaNova" }}
       >
         <NavBar />

@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import ErrorPopup from "../PopUp/ErrorPopup";
+import Swal from "sweetalert2";
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
@@ -9,6 +11,10 @@ function Timer({ countMin = 30 }: { countMin: number }) {
   const [timerExpired, setTimerExpired] = useState(false);
 
   useEffect(() => {
+    Swal.fire({
+      icon: "info",
+      title: "Time is starts now!",
+    });
     const interval = setInterval(() => {
       const currentTime = Date.now();
       const remainingTime = startTime - currentTime;
@@ -17,12 +23,17 @@ function Timer({ countMin = 30 }: { countMin: number }) {
         clearInterval(interval);
         setTimerExpired(true);
         setTime(0);
+        Swal.fire({
+          icon: "warning",
+          title: "Timer's Up!",
+        });
       } else {
         setTime(remainingTime);
       }
     }, 1000);
-
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [startTime]);
 
   const timeUnits = {
@@ -36,12 +47,12 @@ function Timer({ countMin = 30 }: { countMin: number }) {
         <div className="text-red-500 font-bold">Timer's Up!</div>
       ) : (
         Object.entries(timeUnits).map(([label, value]) => (
-            <div key={label} className="flex flex-row gap-1 bg-white font-black">
-              <p>{`${value}`.padStart(2, "0")}</p>
-              <span className="text">{label}</span>
-            </div>
-          ))
-        )
+          <div key={label} className="flex flex-row gap-1 bg-white font-black">
+            <p>{`${value}`.padStart(2, "0")}</p>
+            <span className="text">{label}</span>
+          </div>
+        ))
+      )
       }
     </div>
   );

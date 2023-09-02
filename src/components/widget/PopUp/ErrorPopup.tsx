@@ -10,5 +10,5 @@ export default function ErrorPopup({ showIcon = true, title = "Oops...", message
   } else {
     Swal.fire(message);
   }
-  return <></>;
+  // window.alert(message);
 }

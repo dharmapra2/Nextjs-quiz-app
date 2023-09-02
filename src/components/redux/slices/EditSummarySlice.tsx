@@ -2,6 +2,7 @@ import { loadFromLocalStorage } from "@/components/Utility/Utility";
 import { singleQuestion } from "@/components/service/Type";
 import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 export interface filterState {
   clickedSave: String;
@@ -35,7 +36,10 @@ export const questionControl = createSlice({
           find.visibility.visited = true;
         }
       } catch (error) {
-        <ErrorPopup showIcon={true} title="Warning..." message="Something wents wrong in redux!." />
+        Swal.fire({
+          icon: "error",
+          title: "Something wents wrong",
+        });
       }
     },
     clickSave: (state) => {

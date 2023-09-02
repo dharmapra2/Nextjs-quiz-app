@@ -17,7 +17,7 @@ function Dots({ items, ...props }: { items: any }) {
             opt: null
         }
         dispatch(setSelectedOptions(temp));
-        push(`/quiz/${items?.itemId}`);
+        push(`/quiz/${itemId}`);
     }
 
 

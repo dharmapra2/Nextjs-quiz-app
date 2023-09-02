@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { singleQuestion } from "@/components/service/Type";
 import { QuizContext } from "../layout";
-import Link from "next/link";
 import SkeletonNormalLoader from "@/components/widget/loader/SkeletonNormalLoader";
 import { AppDispatch } from "@/components/redux/store";
 import { useDispatch } from "react-redux";
@@ -132,5 +131,5 @@ function Page({ params }: { params: { itemId: number } }) {
   );
 }
 
-// export default React.memo(Page);
-export default Page;
+export default React.memo(Page);
+// export default Page;
