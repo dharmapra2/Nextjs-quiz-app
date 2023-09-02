@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import SkeletonNormalLoader from "@/components/widget/loader/SkeletonNormalLoader";
 import SkeletonSingleLineLoader from "@/components/widget/loader/SkeletonSingleLineLoader";
-import { useRouter, useParams, usePathname } from "next/navigation";
+import Timer from "@/components/widget/Timer/Timer";
 
 export const QuizContext = createContext<{
   questionData: singleQuestion[] | any[];
@@ -24,14 +24,7 @@ const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'
 
 function QuizLayout({ children, params }: { children: React.ReactNode, params: { categoryName: string, itemId: number } }) {
   const isClient = typeof window !== "undefined";
-  const { push } = useRouter();
 
-  const { categoryName } = params;
-
-  // if (["quizPage", "reportPage"].includes(categoryName) == false) {
-  //   push('/404');
-  //   return null;
-  // }
 
   // Initialize questionData and noOfQue with default values
   let questionData: singleQuestion[] | any[] = [];
@@ -52,10 +45,22 @@ function QuizLayout({ children, params }: { children: React.ReactNode, params: {
         className="relative flex w-full h-full flex-col justify-between gap-2 overflow-hidden"
         style={{ fontFamily: "ProximaNova" }}
       >
-        <NavBar />
+
+        <nav
+          className={`h-[10%] w-full flex flex-col md:flex-row justify-between  items-stretch md:items-center bg-quiz-purple-15`}
+        >
+          <li className="float-left flex first:pt-0 last:pb-0">
+            <img className="h-10 w-10 rounded-full bg-quiz-purple" alt="" src={"next.svg"} />
+            <div className="ml-3 overflow-hidden">
+              <p className="text-sm font-medium text-slate-900">Dhrama Pradhan</p>
+              <p className="text-sm text-slate-500 truncate">dharma@prgmail.con</p>
+            </div>
+          </li>
+          <Timer countMin={1} />
+        </nav>
         <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-10%)]">
           <section className={`w-full h-[10%] md:h-full md:max-w-[350px] bg-white overflow-auto p-0 sm:p-2`}>
-            <ServerComponent />
+            <ServerComponent questionData={questionData} clickedSave={clickedSave} />
           </section>
           <div className="w-full h-full bg-yellow-900 overflow-auto p-2 bg-quiz-plum">
             {children}

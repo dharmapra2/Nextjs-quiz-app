@@ -3,7 +3,6 @@ import { setSelectedOptions, storeQuestions } from "@/components/redux/slices/Ed
 import { AppDispatch } from "@/components/redux/store";
 import { singleQuestion } from "@/components/service/Type";
 import InputField from "@/components/widget/Input/InputField";
-import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
 import SkeletonAnimateLoader from "@/components/widget/loader/SkeletonAnimateLoader";
 import { useRouter } from "next/navigation";
 import { SetStateAction, useEffect, useRef, useState } from "react";
@@ -30,7 +29,7 @@ export default function home() {
     };
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      router.push(`/quizPage/1`);
+      router.push(`/quiz/1`);
       dispatch(setSelectedOptions(temp));
     }
   }

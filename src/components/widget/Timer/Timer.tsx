@@ -7,14 +7,8 @@ import { useRouter } from "next/navigation";
 const SECOND = 1000;
 const MINUTE = SECOND * 10;
 
-function Timer({ countMin = 30, path }: { countMin: number, path: String }) {
-  console.log(path);
-  const startTime = useMemo(() => {
-    if (path == "reportPage") {
-      countMin = 0;
-    }
-    return Date.now() + countMin * MINUTE
-  }, [path]);
+function Timer({ countMin = 30 }: { countMin: number }) {
+  const startTime = useMemo(() => Date.now() + countMin * MINUTE, []);
   const [time, setTime] = useState(startTime - Date.now());
   const [timerExpired, setTimerExpired] = useState(false);
 

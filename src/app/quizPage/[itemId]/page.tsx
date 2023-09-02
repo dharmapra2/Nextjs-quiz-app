@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 function Page({ params }: { params: { categoryName: string, itemId: number } }) {
   const { questionData } = useContext(QuizContext);
   const paramsItemId = useMemo(() => +params?.itemId, [params?.itemId]);
-  const paramCategoryName = useMemo(() => params?.categoryName, [params?.categoryName]);
   const [selectedQue, setSelectedQue] = useState<singleQuestion | null>(null);
   const [options, setOptions] = useState<string[] | null>([]);
   const [active, setActive] = useState<Number>(-1);
@@ -24,7 +23,6 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
   const { push } = useRouter();
 
   useEffect(() => {
-    console.log(`paramCategoryName: ${paramCategoryName}`);
     const selected = questionData?.find(
       ({ itemId }: { itemId: number }) => paramsItemId === itemId
     );
@@ -60,7 +58,7 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
     }
     console.log(itemId);
     dispatch(setSelectedOptions(temp));
-    push(`/${paramCategoryName}/${itemId}`);
+    push(`/quizPage/${itemId}`);
   }
 
   return (
