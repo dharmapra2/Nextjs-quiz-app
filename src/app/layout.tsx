@@ -13,7 +13,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const msg: String = "hii";
   return (
     <html lang="en">
       <body

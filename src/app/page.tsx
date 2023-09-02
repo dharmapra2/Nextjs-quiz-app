@@ -54,6 +54,7 @@ export default function home() {
                 visited: false,
                 attempted: false,
               },
+              selectedOption: ""
             };
           });
           dispatch(storeQuestions(results));
