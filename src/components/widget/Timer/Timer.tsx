@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ErrorPopup from "../PopUp/ErrorPopup";
 
 const SECOND = 1000;
-const MINUTE = SECOND * 60;
+const MINUTE = SECOND * 50;
 
 function Timer({ countMin = 30 }: { countMin: number }) {
   const startTime = useMemo(() => Date.now() + countMin * MINUTE, []);

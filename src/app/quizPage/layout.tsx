@@ -1,6 +1,6 @@
 "use client";
 import NavBar from "@/components/widget/NavBar";
-import React, { createContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { RootState } from "@/components/redux/store";
 import { singleQuestion } from "@/components/service/Type";
 import { useSelector } from "react-redux";
@@ -10,11 +10,6 @@ import SkeletonSingleLineLoader from "@/components/widget/loader/SkeletonSingleL
 import Timer from "@/components/widget/Timer/Timer";
 import { usePathname, useRouter } from "next/navigation";
 
-export const QuizContext = createContext<{
-  questionData: singleQuestion[] | any[];
-  noOfQue: number;
-  clickedSave: String
-}>({ questionData: [], noOfQue: 0, clickedSave: "" });
 
 const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'), {
   ssr: false, loading: () => <div className="">
@@ -23,7 +18,7 @@ const ServerComponent = dynamic(() => import('@/components/widget/TopNavigation'
   </div>,
 })
 
-function QuizLayout({ children, params }: { children: React.ReactNode, params: { itemId: number } }) {
+function QuizLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter();
   const isClient = typeof window !== "undefined";
@@ -49,24 +44,22 @@ function QuizLayout({ children, params }: { children: React.ReactNode, params: {
   }
 
   return (
-    <QuizContext.Provider value={{ questionData, noOfQue, clickedSave }}>
-      <main
-        className="flex w-full h-full flex-col justify-between gap-0 sm:gap-2 overflow-hidden"
-        style={{ fontFamily: "ProximaNova" }}
-      >
-        <NavBar>
-          <Timer countMin={1} />
-        </NavBar>
-        <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-10%)]">
-          <section className={`w-full h-[70px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2 sideBar`}>
-            <ServerComponent questionData={questionData} clickedSave={clickedSave} readOnly={false} />
-          </section>
-          <div className="w-full h-full overflow-auto">
-            {children}
-          </div>
+    <main
+      className="flex w-full h-full flex-col justify-between gap-0 sm:gap-2 overflow-hidden"
+      style={{ fontFamily: "ProximaNova" }}
+    >
+      <NavBar>
+        <Timer countMin={30} />
+      </NavBar>
+      <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-10%)]">
+        <section className={`w-full h-[70px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2 sideBar`}>
+          <ServerComponent questionData={questionData} clickedSave={clickedSave} readOnly={false} />
+        </section>
+        <div className="w-full h-full overflow-auto">
+          {children}
         </div>
-      </main>
-    </QuizContext.Provider >
+      </div>
+    </main>
   );
 }
 

@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 function Dots({ items, urlPath, readOnly, ...props }: { items: any, urlPath: String | any | null, readOnly: Boolean }) {
     const { push } = useRouter();
     const dispatch: AppDispatch = useDispatch();
-    console.log(urlPath);
 
     const handleClickDotBtn = (itemId: number) => {
         const temp: {

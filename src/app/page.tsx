@@ -94,7 +94,6 @@ export default function home() {
       ...prevState,
       [name]: value,
     }));
-    console.log(userDetails);
   };
   return (
     <main className="flex w-full h-full md:flex-row justify-between gap-0 sm:gap-2">
