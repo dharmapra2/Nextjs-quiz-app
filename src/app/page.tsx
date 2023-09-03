@@ -21,6 +21,7 @@ export default function home() {
     userEmail: "",
   });
   const [clickedBtn, setClickedBtn] = useState(false);
+  const [numOfQue, setNumOfQue] = useState(15);
   const router = useRouter();
 
 
@@ -48,7 +49,7 @@ export default function home() {
     } else {
       try {
         setClickedBtn(true);
-        const response = await fetch("https://opentdb.com/api.php?amount=10", {
+        const response = await fetch(`https://opentdb.com/api.php?amount=${numOfQue ?? 15}`, {
           method: "GET",
         });
         const data = await response.json();
@@ -131,6 +132,26 @@ export default function home() {
             setWidth="w-full"
             setHeight="h-9"
             id="email"
+            extraClassName="font-medium px-4"
+            required={true}
+          />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="numOfQue" className="text-[15px] font-bold leading-4">
+            {"No. of questions"}
+          </label>
+          <InputField
+            inputType="number"
+            autoFocus={false}
+            handleChange={(event) => setNumOfQue(event?.target?.value)}
+            handleKeyPress={(e: { code: any; }) => handleKeyPress(e?.code, "login")}
+            defaultValue={numOfQue}
+            setName="numOfQue"
+            setWidth="w-full"
+            setHeight="h-9"
+            min={15}
+            max={50}
+            id="numOfQue"
             extraClassName="font-medium px-4"
             required={true}
           />

@@ -31,22 +31,19 @@ function InputField({
   autoComplete = false as boolean,
   ...rest
 }) {
-  const InputElement = "input";
   /* here the rest is used to take for other fields like (defultValue/value,key,etc) */
   return (
-    <InputElement
+    <input
       type={inputType}
       autoComplete={autoComplete ? "on" : "off"}
       placeholder={placeholder}
       name={setName}
       id={id ? setName + "-" + id : setName}
       autoFocus={autoFocus}
-      readOnly={readOnly}
       className={`${bgcolor} ${textColor} text-left outline-none font-medium ${setHeight ? setHeight : "h-9"} text-quiz-grey ${setWidth ? setWidth : "w-full"} rounded-[20px] text-base leading-4 ${extraClassName}`}
+      readOnly={readOnly}
       onChange={handleChange}
-      onKeyDown={(event) =>
-        handleKeyPress(event)
-      }
+      onKeyDown={(event) => handleKeyPress(event)}
       {...rest}
     />
   );
