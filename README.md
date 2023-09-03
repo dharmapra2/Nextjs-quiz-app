@@ -1,6 +1,6 @@
 ## Sites link
 
-[Visit the site (https://dharma-nextjs-quiz-app.netlify.app/)](https://dharma-nextjs-quiz-app.netlify.app/)
+[Visit the site (https://quiz-app-mu8s.vercel.app/)](https://quiz-app-mu8s.vercel.app/)
 
 [GitHub repository (https://github.com/dharmapra2/Nextjs-quiz-app)](https://github.com/dharmapra2/Nextjs-quiz-app)
 
