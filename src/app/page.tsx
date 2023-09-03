@@ -6,18 +6,20 @@ import InputField from "@/components/widget/Input/InputField";
 import SkeletonAnimateLoader from "@/components/widget/loader/SkeletonAnimateLoader";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import light_boy from "@/app/light_boy.ico"
 import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
+import { loadFromLocalStorage, saveToLocalStorage } from "@/components/Utility/Utility";
 
 export default function home() {
-  const icon = useRef<any>();
   /* Redux set value */
   const dispatch: AppDispatch = useDispatch();
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [userDetails, setUserDetails] = useState({
+    userName: "",
+    userEmail: "",
+  });
   const [clickedBtn, setClickedBtn] = useState(false);
   const router = useRouter();
 
@@ -30,7 +32,7 @@ export default function home() {
       itemId: 1,
       opt: null,
     };
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = loadFromLocalStorage("accessToken");
     if (accessToken) {
       router.push(`/quizPage/1`);
       dispatch(setSelectedOptions(temp));
@@ -39,10 +41,10 @@ export default function home() {
   );
 
   const handleClick = async () => {
-    if (username.length === 0) {
-      ErrorPopup({ message: "User Name is required" });
-    } else if (email.length === 0) {
-      ErrorPopup({ message: "Email is a required field" });
+    if (userDetails?.userName?.length === 0) {
+      ErrorPopup({ title: 'warning', message: "User Name is required" });
+    } else if (userDetails?.userEmail?.length === 0) {
+      ErrorPopup({ title: 'warning', message: "Email is a required field" });
     } else {
       try {
         setClickedBtn(true);
@@ -65,14 +67,14 @@ export default function home() {
             };
           });
           dispatch(storeQuestions(results));
-          localStorage.setItem("accessToken", "logedin")
+          saveToLocalStorage("logedin", "accessToken");
+          saveToLocalStorage(userDetails, "userDetails");
         } else {
           setClickedBtn(false);
-          ErrorPopup({ message: data.message });
+          ErrorPopup({ title: 'warning', message: data.message });
         }
         setClickedBtn(false);
       } catch (error) {
-        console.log(error);
         setClickedBtn(false);
         ErrorPopup({});
       }
@@ -85,21 +87,30 @@ export default function home() {
       handleClick();
     }
   };
+
+  const handleChange = (event: any) => {
+    const { name, value } = event?.target;
+    setUserDetails((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log(userDetails);
+  };
   return (
     <main className="flex w-full h-full md:flex-row justify-between gap-0 sm:gap-2">
       <Image src={light_boy} alt="Picture of the author" className="hidden md:block max-w-[46vw] h-full" />
       <section className="w-full md:w-[46vw] h-full px-3 flex flex-col gap-2 justify-center items-center">
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="username" className="text-[15px] font-bold leading-4">
+          <label htmlFor="userName" className="text-[15px] font-bold leading-4">
             {"Username"}
           </label>
           <InputField
             inputType="text"
             autoFocus={true}
-            handleChange={(e: { target: { value: SetStateAction<string>; }; }) => setUsername(e.target.value)}
+            handleChange={handleChange}
             handleKeyPress={(e: { code: any; }) => handleKeyPress(e?.code, "login")}
-            value={username}
-            setName="username"
+            defaultValue={userDetails?.userName}
+            setName="userName"
             setWidth="w-full"
             setHeight="h-9"
             id="username"
@@ -108,16 +119,16 @@ export default function home() {
           />
         </div>
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="email" className="text-[15px] font-bold leading-4">
+          <label htmlFor="userEmail" className="text-[15px] font-bold leading-4">
             {"Email"}
           </label>
           <InputField
-            inputType="mail"
+            inputType="email"
             autoFocus={false}
-            handleChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}
+            handleChange={handleChange}
             handleKeyPress={(e: { code: any; }) => handleKeyPress(e?.code, "login")}
-            value={email}
-            setName="email"
+            defaultValue={userDetails?.userEmail}
+            setName="userEmail"
             setWidth="w-full"
             setHeight="h-9"
             id="email"
@@ -126,7 +137,7 @@ export default function home() {
           />
         </div>
         <div className="text-center">
-          <button type="button" className={`bg-quiz-purple cursor-pointer px-6 py-1 text-white text-[15px] font-bold rounded-full min-w-[303px] h-9 my-8`} onClick={handleClick}>
+          <button type="button" className={`cursor-pointer px-6 py-1 text-white text-[15px] font-bold rounded-full min-w-[303px] h-9 my-8`} onClick={handleClick}>
             {clickedBtn ? <SkeletonAnimateLoader /> : "Login"}
           </button>
         </div>

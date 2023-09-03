@@ -36,7 +36,12 @@ export const questionControl = createSlice({
       }
     },
     clickSave: (state) => {
-      state.clickedSave = "yes";
+      if (state.clickedSave != "yes") {
+        state.clickedSave = "yes";
+      } else {
+        state.clickedSave = "no";
+        state.questionData = [];
+      }
     },
   },
 });

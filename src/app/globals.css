@@ -35,6 +35,9 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   background-repeat: no-repeat;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* make scrollbar transparent on Firefox, IE and Edge*/
@@ -167,7 +170,18 @@ button {
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.33);
 }
+button:hover {
+  background: rgba(209, 86, 86, 0.671);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(123, 202, 86, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
 
 button:disabled {
   cursor: not-allowed;
+}
+
+body.swal2-height-auto {
+  height: 100vh !important;
 }

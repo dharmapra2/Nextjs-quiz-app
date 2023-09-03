@@ -55,7 +55,7 @@ function QuizLayout({ children, params }: { children: React.ReactNode, params: {
         style={{ fontFamily: "ProximaNova" }}
       >
         <NavBar>
-          <Timer countMin={10} />
+          <Timer countMin={1} />
         </NavBar>
         <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-10%)]">
           <section className={`w-full h-[70px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2 sideBar`}>

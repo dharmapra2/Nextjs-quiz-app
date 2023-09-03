@@ -5,8 +5,9 @@ import { ReportContext } from "../layout";
 import SkeletonNormalLoader from "@/components/widget/loader/SkeletonNormalLoader";
 import { AppDispatch } from "@/components/redux/store";
 import { useDispatch } from "react-redux";
-import { setSelectedOptions } from "@/components/redux/slices/EditSummarySlice";
+import { clickSave, setSelectedOptions } from "@/components/redux/slices/EditSummarySlice";
 import { useRouter } from "next/navigation";
+import { clearFromLocalStorage, saveToLocalStorage } from "@/components/Utility/Utility";
 
 
 // we are using memo to prevent unnecessary re render
@@ -52,10 +53,18 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
     push(`/reportPage/${itemId}`);
   }
 
+  const handleRestBtn = () => {
+    dispatch(clickSave());
+    clearFromLocalStorage("quizStore");
+    clearFromLocalStorage("accessToken");
+    clearFromLocalStorage("userDetails");
+    push(`/`);
+  }
+
   return (
     <ReportContext.Consumer>
       {(context: any) => (
-        <article className={`w-full h-full flex flex-col ${!loading && "justify-between"} font-serif p-3 pageBg`}>
+        <article className={`w-full h-fit md:h-full flex flex-col ${!loading && "justify-between"} font-serif p-3 pageBg`}>
           {
             loading ? <SkeletonNormalLoader count={2} /> :
               <>
@@ -98,14 +107,20 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
                     </section>
                     <section className="w-full flex flex-col sm:flex-row justify-around gap-2 items-center text-sm md:text-xl flex-wrap">
                       <button
-                        className={`flex gap-2 items-center justify-center focus:outline-none focus:ring focus:ring-violet-300 px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15 `}
+                        className={`flex gap-2 items-center justify-center focus:outline-none focus:ring focus:ring-violet-300 px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[30%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15 `}
                         disabled={paramsItemId <= 1 ? true : false}
                         onClick={() => handleClickDotBtn(paramsItemId, "prev")}
                       >
                         <span className="hidden md:block font-extrabold">{"<"}</span>Prev
                       </button>
                       <button
-                        className="flex gap-2 items-center justify-center focus:outline-none focus:ring focus:ring-violet-300 px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[40%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15"
+                        className={`flex gap-2 items-center justify-center focus:outline-none focus:ring focus:ring-violet-300 px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[30%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15 `}
+                        onClick={() => handleRestBtn()}
+                      >
+                        Retake
+                      </button>
+                      <button
+                        className="flex gap-2 items-center justify-center focus:outline-none focus:ring focus:ring-violet-300 px-5 py-2 leading-5 rounded-full font-semibold text-white w-[calc(100%-10px)] sm:w-[30%] h-12 disabled:bg-quiz-grey disabled:text-quiz-grey-15"
                         disabled={paramsItemId < context?.noOfQue ? false : true}
                         onClick={() => handleClickDotBtn(paramsItemId, "next")}
                       >

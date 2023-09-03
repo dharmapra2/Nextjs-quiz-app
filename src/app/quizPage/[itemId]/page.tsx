@@ -67,7 +67,7 @@ function Page({ params }: { params: { categoryName: string, itemId: number } }) 
   return (
     <QuizContext.Consumer>
       {(context: any) => (
-        <article className={`w-full h-full flex flex-col ${!loading && "justify-between"} font-serif p-3 pageBg`}>
+        <article className={`w-full h-fit md:h-full flex flex-col ${!loading && "justify-between"} font-serif p-3 pageBg`}>
           {
             loading ? <SkeletonNormalLoader count={2} /> :
               <>

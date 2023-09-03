@@ -16,7 +16,7 @@
  */
 function InputField({
   inputType = "text" as string,
-  handleChange = (change: any, ..._props: any) => { },
+  handleChange = (_change: any, ..._props: any) => { },
   handleKeyPress = (_keyPress: any, ..._props: any) => { },
   id = "" as string,
   setName = "" as string,

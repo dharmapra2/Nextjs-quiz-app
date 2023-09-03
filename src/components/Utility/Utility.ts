@@ -24,3 +24,14 @@ export const saveToLocalStorage = (value: any, key = "store") => {
     console.log(`localStorage.setItem error ==> ${error}`);
   }
 };
+export const clearFromLocalStorage = (key = "store") => {
+  try {
+    if (typeof window === "undefined") {
+      // Server-side context, return undefined or an appropriate value
+      return undefined;
+    }
+    window.localStorage.removeItem(key);
+  } catch (error) {
+    console.log(`localStorage.setItem error ==> ${error}`);
+  }
+};
