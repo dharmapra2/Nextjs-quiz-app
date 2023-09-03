@@ -26,19 +26,15 @@ li::after {
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb)); */
   color: #212529;
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  background-color: #f88379;
+  background-image: linear-gradient(147deg, #f88379 0%, #ff1053 74%);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  background-repeat: no-repeat;
 }
 
 /* make scrollbar transparent on Firefox, IE and Edge*/
@@ -65,23 +61,6 @@ body {
   border-radius: 10px;
 }
 
-/* .list-group {
-  display: flex;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  border-radius: 0.25rem;
-}
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: 0.5rem 1rem;
-  color: #212529;
-  text-decoration: none;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-} */
-
 .Animate-loader {
   width: 8px;
   height: 8px;
@@ -90,7 +69,38 @@ body {
   animation: effect 1s infinite linear alternate;
   transform: scale(0);
 }
-
+nav {
+  background: rgba(248, 131, 121, 0.36);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.8px);
+  -webkit-backdrop-filter: blur(1.8px);
+  border: 1px solid rgba(248, 131, 121, 1);
+}
+.sideBar {
+  background: rgba(178, 132, 190, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.4px);
+  -webkit-backdrop-filter: blur(1.4px);
+  /* border: 1px solid rgba(178, 132, 190, 1); */
+}
+.pageBg {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* border: 1px solid rgba(255, 255, 255, 0.33); */
+}
+.question {
+  background: rgba(255, 222, 173, 0.42);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(245, 218, 179, 0.781);
+}
 @keyframes effect {
   0% {
     transform: scale(0.5);
@@ -124,6 +134,38 @@ body {
 
 .Animate-loader:nth-child(5) {
   animation-delay: 0.9s;
+}
+.correct {
+  background: rgba(245, 198, 179, 0.781);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(245, 198, 179, 0.781);
+}
+.selected {
+  background: rgba(236, 122, 77, 0.582);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(245, 198, 179, 0.781);
+}
+.wrong {
+  background: rgba(128, 98, 54, 0.42);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(145, 89, 67, 0.781);
+}
+button {
+  background: rgba(255, 255, 255, 0.27);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.33);
 }
 
 button:disabled {

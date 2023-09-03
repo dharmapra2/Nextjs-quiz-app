@@ -57,11 +57,11 @@ function QuizLayout({ children, params }: { children: React.ReactNode, params: {
         <NavBar>
           <Timer countMin={10} />
         </NavBar>
-        <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-15%)]">
-          <section className={`w-full h-[60px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2`}>
+        <div className="flex flex-col md:flex-row gap-2 w-full h-[calc(100%-60px)] sm:h-[calc(100%-10%)]">
+          <section className={`w-full h-[70px] md:h-full md:max-w-[350px] overflow-auto py-1 sm:p-2 sideBar`}>
             <ServerComponent questionData={questionData} clickedSave={clickedSave} readOnly={false} />
           </section>
-          <div className="w-full h-full bg-yellow-900 overflow-auto p-2 bg-quiz-plum">
+          <div className="w-full h-full overflow-auto">
             {children}
           </div>
         </div>

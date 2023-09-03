@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import light_boy from "@/app/light_boy.ico"
+import ErrorPopup from "@/components/widget/PopUp/ErrorPopup";
 
 export default function home() {
   const icon = useRef<any>();
@@ -39,9 +40,9 @@ export default function home() {
 
   const handleClick = async () => {
     if (username.length === 0) {
-      // ErrorPopup({ message: "User Name is required" });
+      ErrorPopup({ message: "User Name is required" });
     } else if (email.length === 0) {
-      // ErrorPopup({ message: "Email is a required field" });
+      ErrorPopup({ message: "Email is a required field" });
     } else {
       try {
         setClickedBtn(true);
@@ -67,13 +68,13 @@ export default function home() {
           localStorage.setItem("accessToken", "logedin")
         } else {
           setClickedBtn(false);
-          // ErrorPopup({ message: data.message });
+          ErrorPopup({ message: data.message });
         }
         setClickedBtn(false);
       } catch (error) {
         console.log(error);
         setClickedBtn(false);
-        // ErrorPopup({});
+        ErrorPopup({});
       }
     }
   };
@@ -85,11 +86,9 @@ export default function home() {
     }
   };
   return (
-    <main className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full w-[100vw]">
-      <section className="hidden md:block md:w-[46vw] bg-quiz-apricot">
-        <Image src={light_boy} alt="Picture of the author" />
-      </section>
-      <section className="w-auto md:w-[46vw] h-full px-3 flex flex-col gap-2 justify-center items-center">
+    <main className="flex w-full h-full md:flex-row justify-between gap-0 sm:gap-2">
+      <Image src={light_boy} alt="Picture of the author" className="hidden md:block max-w-[46vw] h-full" />
+      <section className="w-full md:w-[46vw] h-full px-3 flex flex-col gap-2 justify-center items-center">
         <div className="w-full flex flex-col gap-2">
           <label htmlFor="username" className="text-[15px] font-bold leading-4">
             {"Username"}

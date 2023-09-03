@@ -36,7 +36,7 @@ function Dots({ items, urlPath, readOnly, ...props }: { items: any, urlPath: Str
             : "text-quiz-white";
     return (
         <div
-            className={`h-6 sm:h-9 w-6 sm:w-9 rounded-full flex justify-center items-center m-1 cursor-pointer ${backgroundColor} ${color}`}
+            className={`h-8 sm:h-9 w-8 sm:w-9 rounded-full flex justify-center items-center m-1 cursor-pointer ${backgroundColor} ${color}`}
             key={items?.itemId}
             onClick={() => handleClickDotBtn(items?.itemId)}
             suppressHydrationWarning
