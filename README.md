@@ -1,10 +1,11 @@
 ## Sites link
 
-[Visit the site](https://dharma-nextjs-quiz-app.netlify.app/)
-[GitHub repository](https://github.com/dharmapra2/Nextjs-quiz-app)
+[Visit the site (https://dharma-nextjs-quiz-app.netlify.app/)](https://dharma-nextjs-quiz-app.netlify.app/)
 
+[GitHub repository (https://github.com/dharmapra2/Nextjs-quiz-app)](https://github.com/dharmapra2/Nextjs-quiz-app)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
 ## Getting Started
 
 First, run the development server:
